@@ -21,4 +21,8 @@ public class ProfilesService {
         return this.profilesRepository.findByLogin(login)
                 .switchIfEmpty(Mono.error(new DocumentNotFoundException("error.document.notFound")));
     }
+
+    public Mono<Profiles> insertOrUpdate(Profiles profile){
+        return this.profilesRepository.save(profile);
+    }
 }

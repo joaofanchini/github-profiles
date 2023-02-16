@@ -1,6 +1,7 @@
 package com.projeto.teste.githubprofilesback.services;
 
 import com.projeto.teste.github_profiles_openapi.model.ProfileResponse;
+import com.projeto.teste.githubprofilesback.integrations.GitHubIntegration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

@@ -105,6 +105,31 @@
                             </configOptions>
                         </configuration>
                     </execution>
+
+                    <execution>
+                        <id>github-api</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/specs-openapi/integracoes/github-api.yaml</inputSpec>
+                            <generatorName>spring</generatorName>
+                            <generateModelDocumentation>false</generateModelDocumentation>
+                            <generateApiDocumentation>false</generateApiDocumentation>
+                            <apiPackage>com.projeto.teste.github_openapi.api</apiPackage>
+                            <modelPackage>com.projeto.teste.github_openapi.model</modelPackage>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <generateApis>false</generateApis>
+                            <configOptions>
+                                <booleanGetterPrefix>true</booleanGetterPrefix>
+                                <serializationLibrary>jackson</serializationLibrary>
+                                <skipDefaultInterface>true</skipDefaultInterface>
+                                <interfaceOnly>true</interfaceOnly>
+                                <reactive>true</reactive>
+                                <requestMappingMode>api_interface</requestMappingMode>
+                            </configOptions>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>

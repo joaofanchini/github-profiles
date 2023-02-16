@@ -1,5 +1,8 @@
 package com.projeto.teste.githubprofilesback.integrations;
 
+import com.projeto.teste.github_openapi.model.MinimalRepository;
+import com.projeto.teste.github_openapi.model.PublicUser;
+import com.projeto.teste.github_openapi.model.SimpleUser;
 import com.projeto.teste.githubprofilesback.exceptions.IntegrationException;
 import com.projeto.teste.githubprofilesback.integrations.filters.Filters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,30 +26,30 @@ public class GitHubIntegration {
 
     private final WebClient webClient;
 
-    public Mono<String> getGeneralInformation(String username) {
+    public Mono<PublicUser> getGeneralInformation(String username) {
         return this.webClient.get()
                 .uri(builder -> builder.path("/users/{username}")
                         .build(username))
                 .retrieve()
-                .bodyToMono(String.class)
+                .bodyToMono(PublicUser.class)
                 .onErrorMap(e -> new IntegrationException("error.github.integration", e, "getGeneralInformation"));
     }
 
-    public Flux<String> getRepositories(String username) {
+    public Flux<MinimalRepository> getRepositories(String username) {
         return this.webClient.get()
                 .uri(builder -> builder.path("/users/{username}/repos")
                         .build(username))
                 .retrieve()
-                .bodyToFlux(String.class)
+                .bodyToFlux(MinimalRepository.class)
                 .onErrorMap(e -> new IntegrationException("error.github.integration", e, "getRepositories"));
     }
 
-    public Flux<String> getFollowers(String username) {
+    public Flux<SimpleUser> getFollowers(String username) {
         return this.webClient.get()
                 .uri(builder -> builder.path("/users/{username}/followers")
                         .build(username))
                 .retrieve()
-                .bodyToFlux(String.class)
+                .bodyToFlux(SimpleUser.class)
                 .onErrorMap(e -> new IntegrationException("error.github.integration", e, "getFollowers"));
     }
 }
