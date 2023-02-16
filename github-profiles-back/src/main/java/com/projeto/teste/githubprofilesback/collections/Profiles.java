@@ -1,38 +1,60 @@
 package com.projeto.teste.githubprofilesback.collections;
 
+import lombok.*;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
+import java.util.List;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "profiles-cl")
 public class Profiles {
     @MongoId
     private Integer id;
 
+    @Indexed
+    @Field
     private String login;
 
+    @Field
     private String avatarUrl;
 
-    public Integer getId() {
-        return id;
+    @Field
+    private List<Repositories> repositories;
+
+    @Field
+    private List<Followers> followers;
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Followers {
+        @Indexed(unique = true)
+        private Integer id;
+
+        @Field
+        private String login;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Repositories {
+        @Indexed(unique = true)
+        private Integer id;
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
+        @Field
+        private String name;
     }
 }

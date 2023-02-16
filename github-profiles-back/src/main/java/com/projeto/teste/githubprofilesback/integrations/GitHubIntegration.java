@@ -5,51 +5,57 @@ import com.projeto.teste.github_openapi.model.PublicUser;
 import com.projeto.teste.github_openapi.model.SimpleUser;
 import com.projeto.teste.githubprofilesback.exceptions.IntegrationException;
 import com.projeto.teste.githubprofilesback.integrations.filters.Filters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
 public class GitHubIntegration {
 
+    private static final Logger log = LoggerFactory.getLogger(GitHubIntegration.class);
+
     @Autowired
     public GitHubIntegration(@Value("${github.api.baseUrl}") String baseUrl) {
         this.webClient = WebClient.builder()
-                .filter(Filters.filtroAddHeader(HttpHeaders.ACCEPT, "application/vnd.github+json"))
                 .baseUrl(baseUrl)
+                .filter(Filters.filtroAddHeader(HttpHeaders.ACCEPT, "application/vnd.github+json"))
+                .filter(Filters.logRequest())
+                .filter(Filters.logResponse())
                 .build();
     }
 
     private final WebClient webClient;
 
-    public Mono<PublicUser> getGeneralInformation(String username) {
+    public Mono<PublicUser> getGeneralInformation(String login) {
         return this.webClient.get()
                 .uri(builder -> builder.path("/users/{username}")
-                        .build(username))
+                        .build(login))
                 .retrieve()
                 .bodyToMono(PublicUser.class)
                 .onErrorMap(e -> new IntegrationException("error.github.integration", e, "getGeneralInformation"));
     }
 
-    public Flux<MinimalRepository> getRepositories(String username) {
+    public Mono<MinimalRepository[]> getRepositories(String login) {
         return this.webClient.get()
                 .uri(builder -> builder.path("/users/{username}/repos")
-                        .build(username))
+                        .build(login))
                 .retrieve()
-                .bodyToFlux(MinimalRepository.class)
+                .bodyToMono(MinimalRepository[].class)
                 .onErrorMap(e -> new IntegrationException("error.github.integration", e, "getRepositories"));
     }
 
-    public Flux<SimpleUser> getFollowers(String username) {
+    public Mono<SimpleUser[]> getFollowers(String login) {
         return this.webClient.get()
                 .uri(builder -> builder.path("/users/{username}/followers")
-                        .build(username))
+                        .build(login))
                 .retrieve()
-                .bodyToFlux(SimpleUser.class)
+                .bodyToMono(SimpleUser[].class)
                 .onErrorMap(e -> new IntegrationException("error.github.integration", e, "getFollowers"));
+
     }
 }

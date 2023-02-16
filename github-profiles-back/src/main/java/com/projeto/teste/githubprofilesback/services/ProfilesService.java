@@ -18,8 +18,7 @@ public class ProfilesService {
     private final ProfilesRepository profilesRepository;
 
     public Mono<Profiles> findByLogin(String login) {
-        return this.profilesRepository.findByLogin(login)
-                .switchIfEmpty(Mono.error(new DocumentNotFoundException("error.document.notFound")));
+        return this.profilesRepository.findByLogin(login);
     }
 
     public Mono<Profiles> insertOrUpdate(Profiles profile){

@@ -63,6 +63,28 @@ components:
         avatarUrl:
           type: string
           example: https://avatars.githubusercontent.com/u/31604369?v=4
+        followers:
+          type: array
+          items:
+            type: object
+            properties:
+              login:
+                type: string
+                example: login-user
+              id:
+                type: integer
+                example: 123123
+        repositories:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: repo
+              id:
+                type: integer
+                example: 123123
 
     Fault:
       type: object
