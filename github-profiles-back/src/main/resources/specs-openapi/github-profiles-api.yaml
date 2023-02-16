@@ -56,7 +56,7 @@ components:
       type: object
       properties:
         id:
-          type: number
+          type: integer
         login:
           type: string
           example: joaofanchini
