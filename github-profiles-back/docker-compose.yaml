@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  backend:
+    container_name: github-profiles-back
+    build: .
+    ports:
+      - "80:8080"
+    volumes:
+      - app:/app_vol
+    networks:
+      - backend
+    environment:
+      - MONGO_HOST=mongodb
+    depends_on:
+      - mongodb
+  mongodb:
+    container_name: mongodb
+    image: "mongo:latest"
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo:/mongo_vol
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
+volumes:
+  app:
+  mongo:
