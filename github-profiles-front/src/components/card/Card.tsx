@@ -12,7 +12,7 @@ const Card = ({idProfileResponse}: CardProperties) => {
     const profile = profiles.find(profile => profile.id === idProfileResponse);
 
     return <div className='card'>
-        <h1 className='card__title'>Login: {profile && profile.login}</h1>
+        <h1 className='card__title'>Usuário: {profile && profile.login}</h1>
         <img className='card__image' src={profile && profile.avatarUrl}
              alt='Profile Picture'/>
         <h3 className='card__complement'>Id: {profile &&  profile.id}</h3>
