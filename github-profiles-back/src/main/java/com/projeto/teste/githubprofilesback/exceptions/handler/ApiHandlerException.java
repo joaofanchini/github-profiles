@@ -1,5 +1,6 @@
 package com.projeto.teste.githubprofilesback.exceptions.handler;
 
+import com.projeto.teste.github_profiles_openapi.model.Fault;
 import com.projeto.teste.githubprofilesback.exceptions.BaseRuntimeException;
 import com.projeto.teste.githubprofilesback.exceptions.IntegrationException;
 import org.springframework.context.MessageSource;
@@ -25,7 +26,10 @@ public class ApiHandlerException {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IntegrationException.class)
     public Fault internalServerError(BaseRuntimeException e) {
-        return new Fault(getMessage(e.getCode(), e.getParameters()), e);
+        final String message = getMessage(e.getCode(), e.getParameters());
+
+        return new Fault().message(message)
+                .exception(e.getClass().getName());
     }
 
     private String getMessage(String code, List<String> parameters) {
