@@ -14,6 +14,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Component
 public class GitHubIntegration {
 
@@ -40,21 +43,23 @@ public class GitHubIntegration {
                 .onErrorMap(e -> new IntegrationException("error.github.integration", e, "getGeneralInformation"));
     }
 
-    public Mono<MinimalRepository[]> getRepositories(String login) {
+    public Mono<List<MinimalRepository>> getRepositories(String login) {
         return this.webClient.get()
                 .uri(builder -> builder.path("/users/{username}/repos")
                         .build(login))
                 .retrieve()
                 .bodyToMono(MinimalRepository[].class)
+                .map(Arrays::asList)
                 .onErrorMap(e -> new IntegrationException("error.github.integration", e, "getRepositories"));
     }
 
-    public Mono<SimpleUser[]> getFollowers(String login) {
+    public Mono<List<SimpleUser>> getFollowers(String login) {
         return this.webClient.get()
                 .uri(builder -> builder.path("/users/{username}/followers")
                         .build(login))
                 .retrieve()
                 .bodyToMono(SimpleUser[].class)
+                .map(Arrays::asList)
                 .onErrorMap(e -> new IntegrationException("error.github.integration", e, "getFollowers"));
 
     }
