@@ -2,6 +2,7 @@ package com.projeto.teste.githubprofilesback.exceptions.handler;
 
 import com.projeto.teste.github_profiles_openapi.model.Fault;
 import com.projeto.teste.githubprofilesback.exceptions.BaseRuntimeException;
+import com.projeto.teste.githubprofilesback.exceptions.DocumentNotFoundException;
 import com.projeto.teste.githubprofilesback.exceptions.IntegrationException;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -25,11 +26,20 @@ public class ApiHandlerException {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IntegrationException.class)
-    public Fault internalServerError(BaseRuntimeException e) {
+    public Fault integrationException(BaseRuntimeException e) {
         final String message = getMessage(e.getCode(), e.getParameters());
 
         return new Fault().message(message)
-                .exception(e.getClass().getName());
+                .exception(e.getClass().getSimpleName());
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(DocumentNotFoundException.class)
+    public Fault documentNotFoundExpcetion(DocumentNotFoundException e) {
+        final String message = getMessage(e.getCode(), e.getParameters());
+
+        return new Fault().message(message)
+                .exception(e.getClass().getSimpleName());
     }
 
     private String getMessage(String code, List<String> parameters) {
