@@ -10,8 +10,12 @@ import org.springframework.boot.autoconfigure.mongo.MongoReactiveAutoConfigurati
 import org.springframework.boot.web.servlet.server.Encoding;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.reactive.config.CorsRegistry;
+import org.springframework.web.reactive.config.EnableWebFlux;
+import org.springframework.web.reactive.config.WebFluxConfigurer;
 
 import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
@@ -38,4 +42,16 @@ public class GithubProfilesBackApplication {
         return new ConverterFacade(converters);
     }
 
+    @Configuration
+    @EnableWebFlux
+    public class CorsGlobalConfiguration implements WebFluxConfigurer {
+
+        @Override
+        public void addCorsMappings(CorsRegistry corsRegistry) {
+            corsRegistry.addMapping("/**")
+                    .allowedOrigins("*")
+                    .allowedMethods("*")
+                    .maxAge(3600);
+        }
+    }
 }
