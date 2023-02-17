@@ -5,8 +5,6 @@ import com.projeto.teste.github_openapi.model.PublicUser;
 import com.projeto.teste.github_openapi.model.SimpleUser;
 import com.projeto.teste.githubprofilesback.exceptions.IntegrationException;
 import com.projeto.teste.githubprofilesback.integrations.filters.Filters;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -19,8 +17,6 @@ import java.util.List;
 
 @Component
 public class GitHubIntegration {
-
-    private static final Logger log = LoggerFactory.getLogger(GitHubIntegration.class);
 
     @Autowired
     public GitHubIntegration(@Value("${github.api.baseUrl}") String baseUrl) {

@@ -1,7 +1,6 @@
 package com.projeto.teste.githubprofilesback.services;
 
 import com.projeto.teste.githubprofilesback.collections.Profiles;
-import com.projeto.teste.githubprofilesback.exceptions.DocumentNotFoundException;
 import com.projeto.teste.githubprofilesback.repositories.ProfilesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

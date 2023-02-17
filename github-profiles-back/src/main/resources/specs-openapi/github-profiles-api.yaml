@@ -95,3 +95,9 @@ components:
         exception:
           type: string
           example: ExceptionName
+        cause:
+          type: string
+          example: Exception
+        timestamp:
+          type: integer
+          format: int64
