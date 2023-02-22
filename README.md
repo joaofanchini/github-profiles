@@ -4,9 +4,11 @@ App separado entre back-end e front-end.
 
 # github-profiles-back
 
-Para realizar o start do backend, basta rodar o compando: docker-compose build, e após finalizar rodar o comando docker-compose up.
+Para iniciar o back-end, basta rodar os comandos: 
+- `docker-compose build`
+- `docker-compose up`
 
-Neste processo ele irá inicar os contêineres,sendo o do serviço back-end (que estará exposto na porta 8080) e o do banco de dados (MongoDb que estará exposto na porta 27017).
+Neste processo ele iniciará os contêineres do serviço back-end (que estará exposto na porta 8080) e do banco de dados (MongoDb que estará exposto na porta 27017).
 
 # github-profiles-front
 
