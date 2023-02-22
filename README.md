@@ -18,6 +18,6 @@ Para iniciar o front-end basta rodar os seguintes comandos (por padrão a aplica
 
 Dado o desafio passado, entendi que de acordo com as necessidades, o serviço teria uma característica de trabalhar mais com operações de I/O do que com o processamento de dados, o que considerei sendo melhor para atender este requisito o serviço utilizar uma perspectiva reativa.
 
-A escolha pelo banco de dados em ser o MongoDB consistiu em verificar que não teria a necessidade de separar os relacionamentos entre as informações, uma vez que elas dependem de um mesmo dado em comum.
+A escolha pelo banco de dados MongoDB consistiu em verificar que não teria a necessidade de separar os relacionamentos entre as informações, uma vez que elas dependem de um mesmo dado em comum.
 
 A estrutura do serviço ficou divido em camadas, e sua escolha se deu por seu uma padrão comum em aplicações de back-end.
